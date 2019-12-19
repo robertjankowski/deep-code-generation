@@ -5,16 +5,17 @@
 import tensorflow as tf
 import os
 import numpy as np
+import datetime
 
 from tensorflow import keras
 
 print(tf.__version__)
 
 # I used only kernel folder from linux repo (https://github.com/torvalds/linux/tree/master/kernel)
-path_name = "linux_kernel/"
+path_name = "data/linux_kernel/"
 
 # concat all files into training file
-linux_kernel_all_files = "linux_kernel_training.txt"
+linux_kernel_all_files = "data/linux_kernel_training.txt"
 with open(linux_kernel_all_files, "w") as a:
     for file in os.listdir(path_name):
         f = os.path.join(path_name, file)
@@ -78,9 +79,13 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_prefix,
     save_weights_only=True)
 
+log_dir = "./logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+tf_board_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+
 history = model.fit(X,
                     y,
                     epochs=EPOCHES,
                     batch_size=BATCH_SIZE,
                     verbose=1,
-                    callbacks=[checkpoint_callback])
+                    callbacks=[checkpoint_callback, tf_board_callback])
+
