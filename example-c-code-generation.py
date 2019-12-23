@@ -11,7 +11,7 @@ from tensorflow import keras
 print(tf.__version__)
 
 # I used only kernel folder from linux repo (https://github.com/torvalds/linux/tree/master/kernel)
-path_name = "linux_kernel/"
+path_name = "data/linux_kernel/"
 
 # concat all files into training file
 linux_kernel_all_files = "linux_kernel_training.txt"
@@ -21,6 +21,7 @@ with open(linux_kernel_all_files, "w") as a:
         current_file = open(f).read()
         a.write(current_file)
 
+linux_kernel_all_files = "data/linux_kernel/linux_kernel_training.txt"
 text = open(linux_kernel_all_files, 'r').read()
 chars = sorted(list(set(text)))
 
