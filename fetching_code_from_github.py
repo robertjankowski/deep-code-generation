@@ -52,7 +52,7 @@ if __name__ == "__main__":
     ACCESS_TOKEN = get_github_access_token('github_credentials.ini')
 
     g = Github(ACCESS_TOKEN)
-    scala_files = get_files_by_extension(g, ['deep learning'], 'py', max_size=100)
+    scala_files = get_files_by_extension(g, ['julia', 'data', '*'], 'jl', max_size=100)
 
-    github_source_path = 'data/github_sources'
+    github_source_path = 'data/github_sources/julia'
     download_code(github_source_path, scala_files)
